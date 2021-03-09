@@ -1,0 +1,2 @@
+# klinic
+Simple BI project.
