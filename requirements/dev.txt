@@ -1,0 +1,5 @@
+# development environment dependency
+-r deps.txt
+-r pylint.txt
+-r tests.txt
+tox>=3.23.0
