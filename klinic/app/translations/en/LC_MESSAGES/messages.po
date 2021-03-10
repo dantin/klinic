@@ -1,0 +1,55 @@
+# English translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-03-10 17:16+0800\n"
+"PO-Revision-Date: 2021-03-10 17:23+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: app/views.py:88
+msgid "Hospital List"
+msgstr "List Hospital"
+
+#: app/views.py:91 app/views.py:99
+msgid "Organization Management"
+msgstr "Organizations"
+
+#: app/views.py:97
+msgid "Department List"
+msgstr "List Department"
+
+#: app/views.py:105
+msgid "Device List"
+msgstr "List Device"
+
+#: app/views.py:108
+msgid "Device Management"
+msgstr "Devices"
+
+#: app/views.py:114
+msgid "Device Brand List"
+msgstr "List Device Brand"
+
+#: app/views.py:117 app/views.py:125
+msgid "Meta Management"
+msgstr "Meta"
+
+#: app/views.py:123
+msgid "Device Type List"
+msgstr "List Device Type"
+
+#: app/templates/404.html:4
+msgid "Page not found"
+msgstr "Page not Found"

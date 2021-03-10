@@ -1,66 +1,66 @@
 # -*- coding: utf-8 -*-
 
 from flask import render_template
-# from flask_appbuilder.models.sqla.interface import SQLAInterface
-from flask_appbuilder import (
-    SimpleFormView
-)
+from flask_appbuilder import ModelView
+from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_babel import lazy_gettext as _
 
 from . import appbuilder, db
-from .forms import UploadForm
-
-"""
-    Create your Model based REST API::
-
-    class MyModelApi(ModelRestApi):
-        datamodel = SQLAInterface(MyModel)
-
-    appbuilder.add_api(MyModelApi)
+from .models import Device, Hospital, Department, DeviceBrand, DeviceType
 
 
-    Create your Views::
+class DeviceModelView(ModelView):
+    datamodel = SQLAInterface(Device)
+
+    list_columns = [
+        'no',
+        'name',
+        'department.hospital.name',
+        'department',
+        'device_type',
+    ]
+
+    base_order = ('id', 'asc')
+
+    show_fieldsets = [
+        ('Summary', {'fields': ['no', 'name']}),
+        (
+            'Device Info',
+            {
+                'fields': [
+                    'no',
+                    'name',
+                    'apm_id',
+                ],
+                'expanded': False,
+            },
+        ),
+    ]
 
 
-    class MyModelView(ModelView):
-        datamodel = SQLAInterface(MyModel)
+class DepartmentModelView(ModelView):
+    datamodel = SQLAInterface(Department)
+    list_columns = ['hospital.name', 'name']
 
 
-    Next, register your Views::
+class HospitalModelView(ModelView):
+    datamodel = SQLAInterface(Hospital)
+    related_views = [
+        DepartmentModelView,
+    ]
+    list_title = _('List Hospital')
 
 
-    appbuilder.add_view(
-        MyModelView,
-        "My View",
-        icon="fa-folder-open-o",
-        category="My Category",
-        category_icon='fa-envelope'
-    )
-"""
+class DeviceTypeModelView(ModelView):
+    datamodel = SQLAInterface(DeviceType)
+    list_columns = ['device_brand.name', 'name']
 
 
-class UploadView(SimpleFormView):
-    form = UploadForm
-    form_title = '上传CSV文件'
-    message = '上传成功'
-
-    def form_get(self, form):
-        form.field1.data = "This was prefilled"
-
-    def form_post(self, form):
-        # post process form
-        # flash(self.message, "info")
-        pass
-
-
-appbuilder.add_view(
-    UploadView,
-    '数据导入',
-    icon='fa-group',
-    label=_('File Import'),
-    category='设备管理',
-    category_icon='fa-cogs',
-)
+class DeviceBrandModelView(ModelView):
+    datamodel = SQLAInterface(DeviceBrand)
+    related_views = [
+        DeviceTypeModelView,
+    ]
 
 
 """
@@ -81,3 +81,47 @@ def page_not_found(e):
 
 
 db.create_all()
+
+appbuilder.add_view(
+    HospitalModelView,
+    'List Hospital',
+    icon='fa-folder-open-o',
+    label=_('Hospital List'),
+    category='Organizations',
+    category_icon='fa-envelope',
+    category_label=_('Organization Management'),
+)
+appbuilder.add_view(
+    DepartmentModelView,
+    'List Department',
+    icon='fa-envelope',
+    label=_('Department List'),
+    category='Organizations',
+    category_label=_('Organization Management'),
+)
+appbuilder.add_view(
+    DeviceModelView,
+    'List Device',
+    icon='fa-envelope',
+    label=_('Device List'),
+    category='Devices',
+    category_icon='fa-envelope',
+    category_label=_('Device Management'),
+)
+appbuilder.add_view(
+    DeviceBrandModelView,
+    'List Device Brand',
+    icon='fa-envelope',
+    label=_('Device Brand List'),
+    category='Meta',
+    category_icon='fa-envelope',
+    category_label=_('Meta Management'),
+)
+appbuilder.add_view(
+    DeviceTypeModelView,
+    'List Device Type',
+    icon='fa-envelope',
+    label=_('Device Type List'),
+    category='Meta',
+    category_label=_('Meta Management'),
+)
