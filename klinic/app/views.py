@@ -1,66 +1,113 @@
 # -*- coding: utf-8 -*-
 
 from flask import render_template
-# from flask_appbuilder.models.sqla.interface import SQLAInterface
-from flask_appbuilder import (
-    SimpleFormView
-)
+from flask_appbuilder import ModelView
+from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_babel import lazy_gettext as _
 
 from . import appbuilder, db
-from .forms import UploadForm
-
-"""
-    Create your Model based REST API::
-
-    class MyModelApi(ModelRestApi):
-        datamodel = SQLAInterface(MyModel)
-
-    appbuilder.add_api(MyModelApi)
+from .models import Device, Hospital, Department, DeviceBrand, DeviceType
 
 
-    Create your Views::
+class DeviceModelView(ModelView):
+    datamodel = SQLAInterface(Device)
+    list_title = _('List Device')
+    show_title = _('Show Device')
+    add_title = _('Add Device')
+    edit_title = _('Edit Device')
+
+    list_columns = [
+        'no',
+        'name',
+        'department.hospital.name',
+        'department',
+        'device_type',
+    ]
+
+    label_columns = {
+        'no': _('Device No.'),
+        'name': _('Device Name'),
+        'department.hospital.name': _('Hospital Name'),
+        'department': _('Department'),
+        'device_type': _('Device Type'),
+        'apm_id': _('APM ID'),
+    }
+
+    base_order = ('id', 'asc')
+
+    show_fieldsets = [
+        (
+            _('Summary'),
+            {'fields': ['no', 'name']}
+        ),
+        (
+            _('Device Info'),
+            {
+                'fields': [
+                    'no',
+                    'name',
+                    'apm_id',
+                ],
+                'expanded': False,
+            },
+        ),
+    ]
 
 
-    class MyModelView(ModelView):
-        datamodel = SQLAInterface(MyModel)
+class DepartmentModelView(ModelView):
+    datamodel = SQLAInterface(Department)
+    list_columns = ['hospital.name', 'name']
+    list_title = _('List Department')
+    show_title = _('Show Department')
+    add_title = _('Add Department')
+    edit_title = _('Edit Department')
+
+    label_columns = {
+        'hospital.name': _('Hospital Name'),
+        'name': _('Department Name'),
+    }
 
 
-    Next, register your Views::
+class HospitalModelView(ModelView):
+    datamodel = SQLAInterface(Hospital)
+    related_views = [
+        DepartmentModelView,
+    ]
+    list_title = _('List Hospital')
+    show_title = _('Show Hospital')
+    add_title = _('Add Hospital')
+    edit_title = _('Edit Hospital')
+
+    label_columns = {
+        'name': _('Hospital Name'),
+    }
 
 
-    appbuilder.add_view(
-        MyModelView,
-        "My View",
-        icon="fa-folder-open-o",
-        category="My Category",
-        category_icon='fa-envelope'
-    )
-"""
+class DeviceTypeModelView(ModelView):
+    datamodel = SQLAInterface(DeviceType)
+    list_columns = ['device_brand.name', 'name']
+    list_title = _('List Device Type')
+    show_title = _('Show Device Type')
+    add_title = _('Add Device Type')
+    edit_title = _('Edit Device Type')
+    label_columns = {
+        'device_brand.name': _('Device Brand Name'),
+        'name': _('Device Type'),
+    }
 
 
-class UploadView(SimpleFormView):
-    form = UploadForm
-    form_title = '上传CSV文件'
-    message = '上传成功'
-
-    def form_get(self, form):
-        form.field1.data = "This was prefilled"
-
-    def form_post(self, form):
-        # post process form
-        # flash(self.message, "info")
-        pass
-
-
-appbuilder.add_view(
-    UploadView,
-    '数据导入',
-    icon='fa-group',
-    label=_('File Import'),
-    category='设备管理',
-    category_icon='fa-cogs',
-)
+class DeviceBrandModelView(ModelView):
+    datamodel = SQLAInterface(DeviceBrand)
+    related_views = [
+        DeviceTypeModelView,
+    ]
+    list_title = _('List Device Brand')
+    show_title = _('Show Device Brand')
+    add_title = _('Add Device Brand')
+    edit_title = _('Edit Device Brand')
+    label_columns = {
+        'name': _('Device Brand'),
+    }
 
 
 """
@@ -81,3 +128,47 @@ def page_not_found(e):
 
 
 db.create_all()
+
+appbuilder.add_view(
+    HospitalModelView,
+    'List Hospital',
+    icon='fa-hospital-o',
+    label=_('Hospital List'),
+    category='Organizations',
+    category_icon='fa-sitemap',
+    category_label=_('Organization Management'),
+)
+appbuilder.add_view(
+    DepartmentModelView,
+    'List Department',
+    icon='fa-medkit',
+    label=_('Department List'),
+    category='Organizations',
+    category_label=_('Organization Management'),
+)
+appbuilder.add_view(
+    DeviceModelView,
+    'List Device',
+    icon='fa-tachometer',
+    label=_('Device List'),
+    category='Devices',
+    category_icon='fa-server',
+    category_label=_('Device Management'),
+)
+appbuilder.add_view(
+    DeviceBrandModelView,
+    'List Device Brand',
+    icon='fa-book',
+    label=_('Device Brand List'),
+    category='Meta',
+    category_icon='fa-cubes',
+    category_label=_('Meta Management'),
+)
+appbuilder.add_view(
+    DeviceTypeModelView,
+    'List Device Type',
+    icon='fa-tags',
+    label=_('Device Type List'),
+    category='Meta',
+    category_label=_('Meta Management'),
+)
