@@ -2,7 +2,8 @@
 import logging
 import os
 
-from flask import Flask, render_template
+from flask import Flask, g, render_template, redirect
+from flask_appbuilder import expose, IndexView
 from flask_babel import lazy_gettext as _
 
 from klinic.extensions import (
@@ -15,6 +16,16 @@ from klinic.utils.core import pessimistic_connection_handling
 
 
 logger = logging.getLogger(__name__)
+
+
+class KlinicIndexView(IndexView):
+    @expose("/")
+    def index(self):
+        user = g.user
+
+        if user.is_anonymous:
+            return redirect("/login/")
+        return super().index()
 
 
 def create_app() -> Flask:
@@ -70,6 +81,7 @@ class KlinicAppInitializer:
     def configure_fab(self) -> None:
         if self.config['SILENCE_FAB']:
             logging.getLogger('flask_appbuilder').setLevel(logging.ERROR)
+        appbuilder.indexview = KlinicIndexView
         appbuilder.init_app(self.flask_app, db.session)
 
     def init_views(self) -> None:
