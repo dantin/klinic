@@ -1,0 +1,179 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-03-11 17:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: app/views.py:14
+msgid "List Device"
+msgstr "设备列表"
+
+#: app/views.py:15
+msgid "Show Device"
+msgstr "设备详情"
+
+#: app/views.py:16
+msgid "Add Device"
+msgstr "新增设备"
+
+#: app/views.py:17
+msgid "Edit Device"
+msgstr "修改设备"
+
+#: app/views.py:28
+msgid "Device No."
+msgstr "设备编号"
+
+#: app/views.py:29
+msgid "Device Name"
+msgstr "设备名称"
+
+#: app/views.py:30 app/views.py:66 app/views.py:82
+msgid "Hospital Name"
+msgstr "院区名称"
+
+#: app/views.py:31
+msgid "Department"
+msgstr "部门"
+
+#: app/views.py:32 app/views.py:95
+msgid "Device Type"
+msgstr "设备类型"
+
+#: app/views.py:33
+msgid "APM ID"
+msgstr "APM编号"
+
+#: app/views.py:40
+msgid "Summary"
+msgstr "详细信息"
+
+#: app/views.py:44
+msgid "Device Info"
+msgstr "设备详情"
+
+#: app/views.py:60
+msgid "List Department"
+msgstr "科室列表"
+
+#: app/views.py:61
+msgid "Show Department"
+msgstr "科室详情"
+
+#: app/views.py:62
+msgid "Add Department"
+msgstr "新增科室"
+
+#: app/views.py:63
+msgid "Edit Department"
+msgstr "修改科室"
+
+#: app/views.py:67
+msgid "Department Name"
+msgstr "科室名称"
+
+#: app/views.py:76
+msgid "List Hospital"
+msgstr "院区列表"
+
+#: app/views.py:77
+msgid "Show Hospital"
+msgstr "院区详情"
+
+#: app/views.py:78
+msgid "Add Hospital"
+msgstr "新增院区"
+
+#: app/views.py:79
+msgid "Edit Hospital"
+msgstr "编辑园区"
+
+#: app/views.py:89
+msgid "List Device Type"
+msgstr "设备类型列表"
+
+#: app/views.py:90
+msgid "Show Device Type"
+msgstr "设备类型详情"
+
+#: app/views.py:91
+msgid "Add Device Type"
+msgstr "新增设备类型"
+
+#: app/views.py:92
+msgid "Edit Device Type"
+msgstr "编辑设备类型"
+
+#: app/views.py:94
+msgid "Device Brand Name"
+msgstr "品牌名称"
+
+#: app/views.py:104
+msgid "List Device Brand"
+msgstr "品牌列表"
+
+#: app/views.py:105
+msgid "Show Device Brand"
+msgstr "品牌详情"
+
+#: app/views.py:106
+msgid "Add Device Brand"
+msgstr "新增品牌"
+
+#: app/views.py:107
+msgid "Edit Device Brand"
+msgstr "编辑品牌"
+
+#: app/views.py:109
+msgid "Device Brand"
+msgstr "设备品牌"
+
+#: app/views.py:136
+msgid "Hospital List"
+msgstr "院区列表"
+
+#: app/views.py:139 app/views.py:147
+msgid "Organization Management"
+msgstr "组织机构"
+
+#: app/views.py:145
+msgid "Department List"
+msgstr "科室列表"
+
+#: app/views.py:153
+msgid "Device List"
+msgstr "设备列表"
+
+#: app/views.py:156
+msgid "Device Management"
+msgstr "设备管理"
+
+#: app/views.py:162
+msgid "Device Brand List"
+msgstr "品牌列表"
+
+#: app/views.py:165 app/views.py:173
+msgid "Meta Management"
+msgstr "基础数据"
+
+#: app/views.py:171
+msgid "Device Type List"
+msgstr "设备类型列表"
+
+#: app/templates/404.html:4
+msgid "Page not found"
+msgstr "页面不存在"
+

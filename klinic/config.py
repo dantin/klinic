@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
-
 import os
+import logging
 
 from flask_appbuilder.security.manager import AUTH_DB
+from klinic.utils.logging_configurator import DefaultLoggingConfigurator
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+
+logger = logging.getLogger(__name__)
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+if 'KLINIC_HOME' in os.environ:
+    DATA_DIR = os.environ['KLINIC_HOME']
+else:
+    DATA_DIR = os.path.join(os.path.expanduser('~'), '.klinic')
 
 # Your App secret key
 SECRET_KEY = "deadbeefthisismyscretkeydeadbeef"
 
 # The SQLAlchemy connection string.
-# SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "app.db")
+# SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(BASE_DIR, "app.db")
 # SQLALCHEMY_DATABASE_URI = 'mysql://myapp@localhost/myapp'
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@127.0.0.1/klinic'
 
@@ -73,10 +81,10 @@ LANGUAGES = {
 # Image and file configuration
 # ---------------------------------------------------
 # The file upload folder, when using models with files
-UPLOAD_FOLDER = basedir + "/app/static/uploads/"
+UPLOAD_FOLDER = BASE_DIR + "/app/static/uploads/"
 
 # The image upload folder, when using models with images
-IMG_UPLOAD_FOLDER = basedir + "/app/static/uploads/"
+IMG_UPLOAD_FOLDER = BASE_DIR + "/app/static/uploads/"
 
 # The image upload url, when using models with images
 IMG_UPLOAD_URL = "/static/uploads/"
@@ -100,3 +108,27 @@ IMG_UPLOAD_URL = "/static/uploads/"
 # APP_THEME = "spacelab.css"
 # APP_THEME = "united.css"
 # APP_THEME = "yeti.css"
+
+# Default configurator will consume the LOG_* setting below.
+LOGGING_CONFIGURATOR = DefaultLoggingConfigurator()
+
+# Console Log Settings
+LOG_FORMAT = '%(asctime)s:%(levelname)s:%(name)s:%(message)s'
+LOG_LEVEL = 'DEBUG'
+
+# ---------------------------------------------------
+# Enable Time Rotate Log Handler
+# ---------------------------------------------------
+ENABLE_TIME_ROTATE = False
+TIME_ROTATE_LOG_LEVEL = 'DEBUG'
+FILENAME = os.path.join(DATA_DIR, 'klinic.log')
+ROLLOVER = 'midnight'
+INTERVAL = 1
+BACKUP_COUNT = 10
+
+# Whether to bump the logging level to ERROR on the flask_appbuilder package
+# Set to False if/when debugging FAB related issues like permission management.
+SILENCE_FAB = True
+
+# Whether or run the web server in debug mode or not.
+DEBUG = os.environ.get('FLASK_ENV') == 'development'
