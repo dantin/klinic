@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from flask import render_template
 from flask_appbuilder import ModelView
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_babel import lazy_gettext as _
 
-from . import appbuilder, db
 from .models import Device, Hospital, Department, DeviceBrand, DeviceType
 
 
@@ -108,67 +106,3 @@ class DeviceBrandModelView(ModelView):
     label_columns = {
         'name': _('Device Brand'),
     }
-
-
-"""
-    Application wide 404 error handler
-"""
-
-
-@appbuilder.app.errorhandler(404)
-def page_not_found(e):
-    return (
-        render_template(
-            "404.html",
-            base_template=appbuilder.base_template,
-            appbuilder=appbuilder
-        ),
-        404,
-    )
-
-
-db.create_all()
-
-appbuilder.add_view(
-    HospitalModelView,
-    'List Hospital',
-    icon='fa-hospital-o',
-    label=_('Hospital List'),
-    category='Organizations',
-    category_icon='fa-sitemap',
-    category_label=_('Organization Management'),
-)
-appbuilder.add_view(
-    DepartmentModelView,
-    'List Department',
-    icon='fa-medkit',
-    label=_('Department List'),
-    category='Organizations',
-    category_label=_('Organization Management'),
-)
-appbuilder.add_view(
-    DeviceModelView,
-    'List Device',
-    icon='fa-tachometer',
-    label=_('Device List'),
-    category='Devices',
-    category_icon='fa-server',
-    category_label=_('Device Management'),
-)
-appbuilder.add_view(
-    DeviceBrandModelView,
-    'List Device Brand',
-    icon='fa-book',
-    label=_('Device Brand List'),
-    category='Meta',
-    category_icon='fa-cubes',
-    category_label=_('Meta Management'),
-)
-appbuilder.add_view(
-    DeviceTypeModelView,
-    'List Device Type',
-    icon='fa-tags',
-    label=_('Device Type List'),
-    category='Meta',
-    category_label=_('Meta Management'),
-)
