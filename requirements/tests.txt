@@ -1,2 +1,3 @@
 # unit tests dependency
 pytest>=6.2.2
+pytest-mock>=3.5.1
