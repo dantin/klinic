@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from unittest.mock import MagicMock
 
 from klinic.utils.logging_configurator import LoggingConfigurator
 
 
 def reset_logging():
-    # work around all of the import side-effects in superset
+    # work around all of the import side-effects.
     logging.root.manager.loggerDict = {}
     logging.root.handlers = []
 
 
-def test_configurator_adding_handler():
+def test_configurator_adding_handler(mocker):
     class MyEventHandler(logging.Handler):
         def __init__(self):
             super().__init__(level=logging.DEBUG)
@@ -34,7 +33,7 @@ def test_configurator_adding_handler():
 
     handler = MyEventHandler()
     cfg = MyConfigurator(handler)
-    cfg.configure_logging(MagicMock(), True)
+    cfg.configure_logging(mocker.patch('flask.config.Config'), True)
 
     logging.info("test", extra={"testattr": "foo"})
     assert not handler.received
