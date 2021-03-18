@@ -32,7 +32,7 @@ CSRF_ENABLED = True
 APP_NAME = "超声绩效后台管理"
 
 # Uncomment to setup Setup an App icon
-# APP_ICON = "static/img/logo.jpg"
+APP_ICON = "http://113.31.147.198/20040.svg"
 
 # ----------------------------------------------------
 # AUTHENTICATION CONFIG
