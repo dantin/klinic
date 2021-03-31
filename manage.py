@@ -3,7 +3,7 @@ import logging
 from typing import Any, Dict
 
 import click
-from colorama import Fore
+from colorama import Fore, Style
 from flask.cli import FlaskGroup, with_appcontext
 from klinic import app
 from klinic.app import create_app
@@ -53,6 +53,9 @@ def version(verbose: bool) -> None:
         Fore.YELLOW + 'Klinic ' + Fore.CYAN + '0.1-dev'
     )
     print(Fore.BLUE + '==' * 15)
+    if verbose:
+        print(f'[DB] : {db.engine}')
+    print(Style.RESET_ALL)
 
 
 def run_flask(app, listen_addr):
